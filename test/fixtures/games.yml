@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sku: 
+  name: MyString
+  description: MyText
+  release_date: 2020-11-11
+  rating: MyString
+  price: 9.99
+  stock: 
+  link: MyString
+  cover: MyString
+  developer: one
+  publisher: one
+
+two:
+  sku: 
+  name: MyString
+  description: MyText
+  release_date: 2020-11-11
+  rating: MyString
+  price: 9.99
+  stock: 
+  link: MyString
+  cover: MyString
+  developer: two
+  publisher: two
