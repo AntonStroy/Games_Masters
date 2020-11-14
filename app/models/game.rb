@@ -12,4 +12,6 @@ class Game < ApplicationRecord
 
   has_many :order_games
   has_many :orders, through: :order_games
+
+  has_one_attached :cover
 end

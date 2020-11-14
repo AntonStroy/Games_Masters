@@ -13,7 +13,6 @@ ActiveAdmin.register Game do
       f.input  :price
       f.input  :stock
       f.input  :link
-      f.input  :cover
       f.input  :developer_id, as: :select
       f.input  :publisher_id, as: :select
       f.has_many :genre_games, allow_destroy: true do |n_f|
@@ -22,6 +21,7 @@ ActiveAdmin.register Game do
       f.has_many :platform_games, allow_destroy: true do |n_f|
         n_f.input :platform
       end
+      f.input :cover, as: :file, hint: f.object.cover.present? ? cover_tag(f.object.cover) : ""
     end
     f.actions
   end

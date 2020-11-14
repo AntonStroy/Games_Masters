@@ -5,6 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# <%= image_tag file.preview(resize_to_limit: [100, 100]) %>
+
 AdminUser.delete_all
 
 if Rails.env.development?
