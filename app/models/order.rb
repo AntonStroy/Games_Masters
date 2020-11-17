@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-class Order < ApplicationRecord
-  belongs_to :account
-end
-=======
 class Order < ApplicationRecord
   validates :order_date, :order_amount, :shipping_address, :shipping_city, :shipping_province, :shipping_postal, presence: true
   # validates :stock, numericality: { only_integer: true }
@@ -12,4 +7,3 @@ class Order < ApplicationRecord
   has_many :order_games
   has_many :games, through: :order_games
 end
->>>>>>> active_admin

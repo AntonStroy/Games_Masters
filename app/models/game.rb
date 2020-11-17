@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-class Game < ApplicationRecord
-  belongs_to :developer
-  belongs_to :publisher
-end
-=======
 class Game < ApplicationRecord
   validates :name, :description, :release_date, :price, :stock, presence: true
   validates :stock, numericality: { only_integer: true }
@@ -24,4 +18,4 @@ class Game < ApplicationRecord
   has_many :orders, through: :order_games
 
   has_one_attached :cover
->>>>>>> active_admin
+end
