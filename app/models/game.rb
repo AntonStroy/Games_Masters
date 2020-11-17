@@ -1,4 +1,8 @@
 class Game < ApplicationRecord
+  validates :name, :description, :release_date, :price, :stock, presence: true
+  validates :stock, numericality: { only_integer: true }
+  valdiates :price, numericality: { greater_than_or_equal_to: 0 }
+
   belongs_to :developer
   belongs_to :publisher
 
@@ -14,4 +18,3 @@ class Game < ApplicationRecord
   has_many :orders, through: :order_games
 
   has_one_attached :cover
-end
