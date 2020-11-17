@@ -13,8 +13,8 @@ ActiveAdmin.register Game do
       f.input  :price
       f.input  :stock
       f.input  :link
-      f.input  :developer_id, as: :select
-      f.input  :publisher_id, as: :select
+      f.input  :developer, as: :select
+      f.input  :publisher, as: :select
       f.has_many :genre_games, allow_destroy: true do |n_f|
         n_f.input :genre
       end

@@ -1,18 +1,17 @@
 require "csv"
 
-Publisher.destroy_all
-Developer.destroy_all
-Genre.destroy_all
-Platform.destroy_all
 GenreGame.destroy_all
 PlatformGame.destroy_all
+Genre.destroy_all
+Platform.destroy_all
+Order.destroy_all
 Game.destroy_all
+OrderGame.destroy_all
+Publisher.destroy_all
+Developer.destroy_all
+Account.destroy_all
 User.destroy_all
 Province.destroy_all
-Account.destroy_all
-OrderGame.destroy_all
-Order.destroy_all
-
 AdminUser.destroy_all
 if Rails.env.development?
   AdminUser.create!(email: "admin@example.com", password: "password", password_confirmation: "password")
@@ -31,43 +30,49 @@ sku = 10_001
 # steam_appid	short_description
 # Games_covers columns
 # steam_appid	header_image
-games[0..150].each do |g|
-  game_dedscription = ""
+games[26_900..27_200].each do |g|
+  sku += 1
+  game_description = ""
   games_descriptions.each do |d|
-    if d["steam_appid"] == g["appid"]
-      game_dedscription = d["short_description"]
+    if d[:steam_appid] == g[:appid]
+      game_description = d[:short_description]
       break
     end
   end
   game_cover = ""
   games_covers.each do |c|
-    if c["steam_appid"] == g["appid"]
-      game_cover = c["header_image"]
+    if c[:steam_appid] == g[:appid]
+      game_cover = c[:header_image]
       break
     end
   end
 
-  developer = Developer.find_or_create_by(name: g["developer"])
-  publisher = Publisher.find_or_create_by(name: g["publisher"])
-  game = Game.find_or_create_by(sku:          sku + 1,
-                                   name:         g["name"],
-                                   description:  g["description"],
-                                   release_date: g["release_date"],
-                                   price:        g["price"],
-                                   stock:        rand(1..50))
-  cover = open(URI.escape("https://steamcdn-a.akamaihd.net/steam/apps/#{g[:appid]}/header.jpg"))
-  game.avatar.attach(io: cover, filename: "m-#{game.name}.jpg")
-  sleep(1)
+  developer = Developer.find_or_create_by(name: g[:developer])
+  publisher = Publisher.find_or_create_by(name: g[:publisher])
 
-  genres = g["genres"].split(";")
+  game = Game.find_or_create_by(sku:          sku,
+                                name:         g[:name],
+                                description:  game_description,
+                                release_date: g[:release_date],
+                                price:        g[:price],
+                                stock:        rand(1..50),
+                                developer:    developer,
+                                publisher:    publisher,
+                                cover:        game_cover)
+
+  genres = g[:genres].split(";")
   genres.each do |one_genre|
     genre = Genre.find_or_create_by(name: one_genre)
-    GenreProduct.create(genre: genre, product: game)
+    GenreGame.create(genre: genre, game: game)
   end
+
+  copy_cover = open(URI.escape("https://steamcdn-a.akamaihd.net/steam/apps/#{g[:appid]}/header.jpg"))
+  game.cover.attach(io: copy_cover, filename: "m-#{game.name}.jpg")
+  sleep(1)
 end
 
-puts "Seed file genarate #{Game.count} Games"
-puts "Seed file genarate #{Developer.count} Developers"
-puts "Seed file genarate #{Publisher.count} Publishers"
-puts "Seed file genarate #{Genre.count} Genres"
-puts "Seed file genarate #{GenreProduct.count} GenreProduct"
+puts "Seed file genarated #{Developer.count} Developers"
+puts "Seed file genarated #{Publisher.count} Publishers"
+puts "Seed file genarated #{Game.count} Games"
+puts "Seed file genarated #{Genre.count} Genres"
+puts "Seed file genarated #{GenreGame.count} GenreGames"
