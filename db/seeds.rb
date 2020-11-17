@@ -6,8 +6,8 @@ Genre.destroy_all
 Platform.destroy_all
 GenreGame.destroy_all
 PlatformGame.destroy_all
-Game.dedstroy_all
-User.dedstroy_all
+Game.destroy_all
+User.destroy_all
 Province.destroy_all
 Account.destroy_all
 OrderGame.destroy_all
@@ -20,7 +20,7 @@ end
 
 games_csv = Rails.root + "db/games.csv"
 games = SmarterCSV.process(games_csv, { col_sep: "\t" })
-games_descriptions_csv = Rails.root + "db/games_description.csv"
+games_descriptions_csv = Rails.root + "db/games_descriptions.csv"
 games_descriptions = SmarterCSV.process(games_descriptions_csv, { col_sep: "\t" })
 games_covers_csv = Rails.root + "db/games_covers.csv"
 games_covers = SmarterCSV.process(games_covers_csv, { col_sep: "\t" })
@@ -49,7 +49,7 @@ games[0..150].each do |g|
 
   developer = Developer.find_or_create_by(name: g["developer"])
   publisher = Publisher.find_or_create_by(name: g["publisher"])
-  Game = Product.find_or_create_by(sku:          sku + 1,
+  game = Game.find_or_create_by(sku:          sku + 1,
                                    name:         g["name"],
                                    description:  g["description"],
                                    release_date: g["release_date"],
@@ -62,7 +62,7 @@ games[0..150].each do |g|
   genres = g["genres"].split(";")
   genres.each do |one_genre|
     genre = Genre.find_or_create_by(name: one_genre)
-    GenreProduct.create(genre: genre, product: Game)
+    GenreProduct.create(genre: genre, product: game)
   end
 end
 
