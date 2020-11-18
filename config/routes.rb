@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   # Page link
   get "/pages/:permalink" => "pages#permalink", as: :permalink
 
+  # Genres show and index
+  resources :genres, only: %i[index show]
+
   # Games show and index
   resources :games, only: %i[index show] do
     collection do
