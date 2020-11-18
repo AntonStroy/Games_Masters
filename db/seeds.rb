@@ -39,35 +39,35 @@ games[26_900..27_200].each do |g|
       break
     end
   end
-  game_cover = ""
-  games_covers.each do |c|
-    if c[:steam_appid] == g[:appid]
-      game_cover = c[:header_image]
-      break
-    end
-  end
+  # game_cover = ""
+  # games_covers.each do |c|
+  #   if c[:steam_appid] == g[:appid]
+  #     game_cover = c[:header_image]
+  #     break
+  #   end
+  # end
 
   developer = Developer.find_or_create_by(name: g[:developer])
   publisher = Publisher.find_or_create_by(name: g[:publisher])
 
-  game = Game.find_or_create_by(sku:          sku,
-                                name:         g[:name],
-                                description:  game_description,
-                                release_date: g[:release_date],
-                                price:        g[:price],
-                                stock:        rand(1..50),
-                                developer:    developer,
-                                publisher:    publisher,
-                                cover:        game_cover)
+  each_game = Game.find_or_create_by(sku:          sku,
+                                     name:         g[:name],
+                                     description:  game_description,
+                                     release_date: g[:release_date],
+                                     price:        g[:price],
+                                     stock:        rand(1..50),
+                                     developer:    developer,
+                                     publisher:    publisher)
+                                     #cover:        game_cover
 
   genres = g[:genres].split(";")
   genres.each do |one_genre|
     genre = Genre.find_or_create_by(name: one_genre)
-    GenreGame.create(genre: genre, game: game)
+    GenreGame.create(genre: genre, game: each_game)
   end
 
   copy_cover = open(URI.escape("https://steamcdn-a.akamaihd.net/steam/apps/#{g[:appid]}/header.jpg"))
-  game.cover.attach(io: copy_cover, filename: "m-#{game.name}.jpg")
+  each_game.cover.attach(io: copy_cover, filename: "m-#{each_game.name}.jpg")
   sleep(1)
 end
 

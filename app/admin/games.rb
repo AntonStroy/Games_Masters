@@ -21,7 +21,7 @@ ActiveAdmin.register Game do
       f.has_many :platform_games, allow_destroy: true do |n_f|
         n_f.input :platform
       end
-      f.input :cover, as: :file, hint: f.object.cover.present? ? cover_tag(f.object.cover) : ""
+      f.input :cover, as: :file, hint: f.object.cover.present? ? image_tag(f.object.cover) : ""
     end
     f.actions
   end
