@@ -37,6 +37,8 @@ gem 'devise'
 gem 'image_processing'
 # for parseing csv
 gem 'smarter_csv'
+# for pagination
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

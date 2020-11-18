@@ -18,4 +18,6 @@ class Game < ApplicationRecord
   has_many :orders, through: :order_games
 
   has_one_attached :cover
+
+  paginates_per 48
 end
