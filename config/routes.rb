@@ -6,6 +6,13 @@ Rails.application.routes.draw do
   # Page link
   get "/pages/:permalink" => "pages#permalink", as: :permalink
 
+  root to: "home#index"
+  # Sorting routes
+  get "home/sort_az", to: "home#sort_az", as: "sort_az"
+  get "home/sort_za", to: "home#sort_za", as: "sort_za"
+  get "home/sort_low_high", to: "home#sort_low_high", as: "sort_low_high"
+  get "home/sort_high_low", to: "home#sort_high_low", as: "sort_high_low"
+
   # Genres show and index
   resources :genres, only: %i[index show]
 

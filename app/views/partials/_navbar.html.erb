@@ -13,10 +13,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item">
-        Home
-      </a>
-
+      <a class="navbar-item" href="<%= root_path %>">Home</a>
       <a class="navbar-item">
         Documentation
       </a>
@@ -25,9 +22,11 @@
           Genre
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item">
-            geners need to implament
-          </a>
+          <% categories_genres.each do |g| %>
+              <a class="navbar-item"href="<%= genre_path(g)%>">
+                <%= g.name %>
+              </a>
+          <% end %>
           <hr class="navbar-divider">
           <a class="navbar-item">
             Free to play
@@ -43,16 +42,16 @@
           Sort
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item">
+          <a class="navbar-item" href="<%= sort_az_path %>">
            Name: A-Z
           </a>
-          <a class="navbar-item">
+          <a class="navbar-item" href="<%= sort_za_path %>">
             Name: Z-A
           </a>
-          <a class="navbar-item">
+          <a class="navbar-item" href="<%= sort_low_high_path %>">
            Price: Low-High
           </a>
-          <a class="navbar-item">
+          <a class="navbar-item" href="<%= sort_high_low_path %>">
             Price: High-Low
           </a>
         </div>

@@ -12,23 +12,23 @@ class HomeController < ApplicationController
     @games = Game.where("name LIKE ?", wildcard_search)
   end
 
-  def sort_a_z
-    @games = Game.order(:name) # ASC
+  def sort_az
+    @games = Game.order(:name).includes(:genres).page(params[:page]) # ASC
   end
 
-  def sort_z_a
-    @games = Game.order(name: :desc) # DESC
+  def sort_za
+    @games = Game.order(name: :desc).includes(:genres).page(params[:page]) # DESC
   end
 
   def sort_low_high
-    @games = Game.order(:price) # ASC
+    @games = Game.order(:price).includes(:genres).page(params[:page]) # ASC
   end
 
   def sort_high_low
-    @games = Game.order(price: :desc) # DESC
+    @games = Game.order(price: :desc).includes(:genres).page(params[:page]) # DESC
   end
 
-  def download_free
-    @games = Game.where(price: [nil, 0.0])
+  def sale_search
+    @games = Game.where(price: [nil, "sale"])
   end
 end
