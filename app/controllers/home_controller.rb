@@ -9,7 +9,7 @@ class HomeController < ApplicationController
 
   def search
     wildcard_search = "%#{params[:keywords]}%"
-    @games = Game.where("name LIKE ?", wildcard_search)
+    @games_search = Game.where("name LIKE ?", wildcard_search)
   end
 
   def sort_az
