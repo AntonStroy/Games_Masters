@@ -1,0 +1,41 @@
+<div class="columns is-multiline is-mobile">
+  <div class="column is-mobile is-half">
+    <div class="card">
+      <% if @game.cover.present? %>
+        <div class="card-image">
+          <figure class="image">
+            <%= image_tag @game.cover.variant(resize_to_limit: [300, 300]) %>
+          </figure>
+        </div>
+      <% else %>
+          <p>IMAGE 📸</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="column is-mobile is-half">
+    <div class="media-content">
+      <p><strong>Name:</strong> <%= @game.name %></p>
+      <p><strong>release_date:</strong> <%= @game.release_date %></p>
+      <p><strong>Description:</strong> <%= @game.description %></p>
+      <p><strong>Genre:</strong>
+          <% countGenres = @game.genres.count %>
+            <% @game.genres.each do |g| %>
+              <% if countGenres > 1 %>
+                <%= link_to g.name, genre_path(g) %>,
+              <% else %>
+                <%= link_to g.name, genre_path(g) %>
+              <% end %>
+            <% end %>
+        </p></p>
+      <p><strong>Sku:</strong> <%= @game.sku %></p>
+      <% if @game.price > 0 %>
+      <p><strong>Price:</strong> <%= @game.price %></p>
+      <p><strong>stock:</strong> <%= @game.stock %></p>
+        <% else %>
+            <button>Download for free</button>
+        <% end %>
+
+      <!--<p><strong>link:</strong> under construction</p>-->
+    </div>
+  </div>

@@ -1,5 +1,5 @@
 <div class="column is-one-quarter">
-  <div class="card">
+  <a href="<%= game_path(game) %>"><div class="card">
     <div class="card-image">
       <% if game.cover.present? %>
         <div class="card-image">
@@ -21,18 +21,19 @@
           <% countGenres = game.genres.count %>
             <% game.genres.each do |g| %>
               <% if countGenres > 1 %>
-                <%= link_to g.name, genre_path(g)%>,
+                <%= g.name%>,
               <% else %>
-                <%= link_to g.name, genre_path(g)%>
+                <%= g.name%>
               <% end %>
             <% end %>
         </p>
         <% if game.price > 0 %>
           <p><strong>Price: </strong><%= game.price %></p>
         <% else %>
-            <p><strong>Download for free</strong>
+            <p><strong>Download for free</strong></p>
         <% end %>
       </div>
     </div>
   </div>
+  </a>
 </div>
