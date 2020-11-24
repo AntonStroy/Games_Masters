@@ -48,7 +48,7 @@
           </a>
     </div>
     <div class="navbar-end">
-    <div class="navbar-item has-dropdown is-hoverable">
+      <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
           Sort
         </a>
@@ -66,6 +66,19 @@
             Price: High-Low
           </a>
         </div>
+      </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Information
+        </a>
+          <div class="navbar-dropdown">
+            <% cms_pages.each do |page| %>
+              <a class="navbar-item" href="<%= permalink_path(page.permalink) %>">
+                <%= page.title %>
+              </a>
+            <% end %>
+          </div>
       </div>
 
       <div class="navbar-item">
