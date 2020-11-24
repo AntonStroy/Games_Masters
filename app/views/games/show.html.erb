@@ -16,7 +16,7 @@
   <div class="column is-mobile is-half">
     <div class="media-content">
       <p><strong>Name:</strong> <%= @game.name %></p>
-      <p><strong>release_date:</strong> <%= @game.release_date %></p>
+      <p><strong>Release_date:</strong> <%= @game.release_date %></p>
       <p><strong>Description:</strong> <%= @game.description %></p>
       <p><strong>Genre:</strong>
           <% countGenres = @game.genres.count %>
@@ -31,11 +31,10 @@
       <p><strong>Sku:</strong> <%= @game.sku %></p>
       <% if @game.price > 0 %>
       <p><strong>Price:</strong> <%= @game.price %></p>
-      <p><strong>stock:</strong> <%= @game.stock %></p>
+      <p><strong>Stock:</strong> <%= @game.stock %></p>
         <% else %>
             <button>Download for free</button>
         <% end %>
-
       <!--<p><strong>link:</strong> under construction</p>-->
     </div>
   </div>

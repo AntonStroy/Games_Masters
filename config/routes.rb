@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'developers/index'
+  get 'developers/show'
+  get 'publishers/index'
+  get 'publishers/show'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
@@ -24,4 +28,8 @@ Rails.application.routes.draw do
 
   # Games show and index
   resources :games, only: %i[index show]
+
+  resources :publishers, only: %i[index show]
+
+  resources :developers, only: %i[index show]
 end
