@@ -28,7 +28,7 @@
             <% end %>
         </p>
         <% if game.price > 0 %>
-          <p><strong>Price: </strong><%= game.price %></p>
+          <p><strong>Price: </strong><%= number_to_currency game.price %></p>
         <% else %>
             <p><strong>Download for free</strong></p>
         <% end %>
