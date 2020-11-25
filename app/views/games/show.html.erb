@@ -37,18 +37,21 @@
         <% end %>
       <!--<p><strong>link:</strong> under construction</p>-->
         <div class="field is-grouped is-grouped">
-          <div class="mr-5">
-          <%= form_with url: cart_index_path, method: :post do %>
-            <%= hidden_field_tag(:id, @game.id) %>
-            <%= button_tag 'Add To Cart' %>
-          <% end %>
+          <div class="mr-3">
+            <%= form_with url: cart_index_path, method: :post do %>
+              <%= hidden_field_tag(:id, @game.id) %>
+              <%= button_tag 'Add To Cart' %>
+            <% end %>
+          </div>
+          <div class="mr-3">
+            <% if cart.include?(@game) %>
+              <%= button_to cart_path(@game), method: :delete do %>
+                  Remove From Cart
+              <% end %>
+            <% end %>
           </div>
           <div>
-          <% if cart.include?(@game) %>
-            <%= button_to cart_path(@game), method: :delete do %>
-                Remove From Cart
-              <% end %>
-          <% end %>
+            <%= button_to 'buy now', checkout_create_path, method: :post, params: {id: game.id } %>
           </div>
         </div>
           <% if flash[:notice] %>
