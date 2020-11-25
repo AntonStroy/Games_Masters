@@ -1,39 +1,41 @@
 <div class="column is-one-quarter">
-  <a href="<%= game_path(game) %>"><div class="card">
-    <div class="card-image">
-      <% if game.cover.present? %>
-        <div class="card-image">
-          <figure class="image">
-            <%= image_tag game.cover.variant(resize_to_limit: [300, 300]) %>
-          </figure>
-        </div>
-      <% else %>
-        <p>IMAGE 📸</p>
-      <% end %>
-    </div>
-
-    <div class="card-content">
-      <div class="media-content">
-        <p class="title is-4"><strong>
-          <%= game.name %></strong>
-        </p>
-        <p><strong>Genre:</strong>
-          <% countGenres = game.genres.count %>
-            <% game.genres.each do |g| %>
-              <% if countGenres > 1 %>
-                <%= g.name%>,
-              <% else %>
-                <%= g.name%>
-              <% end %>
-            <% end %>
-        </p>
-        <% if game.price > 0 %>
-          <p><strong>Price: </strong><%= number_to_currency game.price %></p>
+  <a href="<%= game_path(game) %>">
+    <div class="card">
+      <div class="card-image">
+        <% if game.cover.present? %>
+          <div class="card-image">
+            <figure class="image">
+              <%= image_tag game.cover.variant(resize_to_limit: [300, 300]) %>
+            </figure>
+          </div>
         <% else %>
-            <p><strong>Download for free</strong></p>
+        <p>IMAGE 📸</p>
         <% end %>
       </div>
+
+      <div class="card-content">
+        <div class="media-content">
+          <p class="title is-4"><strong>
+            <%= game.name %></strong>
+          </p>
+          <p><strong>Genre:</strong>
+            <% countGenres = game.genres.count %>
+              <% game.genres.each do |g| %>
+                <% if countGenres > 1 %>
+                  <%= g.name%>,
+                <% else %>
+                  <%= g.name%>
+                <% end %>
+              <% end %>
+          </p>
+
+          <% if game.price > 0 %>
+            <p><strong>Price: </strong><%= number_to_currency game.price %></p>
+          <% else %>
+            <p><strong>Download for free</strong></p>
+          <% end %>
+        </div>
+      </div>
     </div>
-  </div>
   </a>
 </div>
