@@ -1,9 +1,19 @@
+
+ <a>
+        <%= form_with(url: search_home_index_path, method: :get, local: true) do %>
+          <div class="field is-grouped">
+            <div class="control is-expanded">
+              <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search For Games') %>
+            </div>
+
+            <div>
+              <%= submit_tag("Search", class: "button is-primary") %>
+            </div>
+          </div>
+        <% end %>
+      </a>
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
-
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -14,83 +24,59 @@
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
       <a class="navbar-item" href="<%= root_path %>">Home</a>
-      <a class="navbar-item" href="<%= publishers_path %>">
-        Publishers
-      </a>
-       <a class="navbar-item" href="<%= developers_path %>">
-        Developers
-      </a>
-        <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Genres
-        </a>
+      <a class="navbar-item" href="<%= publishers_path %>">Publishers</a>
+      <a class="navbar-item" href="<%= developers_path %>">Developers</a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Genres</a>
         <div class="navbar-dropdown">
           <% categories_genres.each do |g| %>
-              <a class="navbar-item"href="<%= genre_path(g)%>">
-                <%= g.name %>
-              </a>
+            <a class="navbar-item"href="<%= genre_path(g)%>"><%= g.name %></a>
           <% end %>
         </div>
-
       </div>
- <a class="navbar-item">
-            <%= form_with(url: search_home_index_path, method: :get, local: true) do %>
-              <div class="field is-grouped">
-                <div class="control is-expanded">
-                  <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search For Games') %>
-                </div>
 
-                <div>
-                  <%= submit_tag("Search", class: "button is-primary") %>
-                </div>
-              </div>
-            <% end %>
-          </a>
-    </div>
-    <div class="navbar-end">
+
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Sort
-        </a>
+        <a class="navbar-link">Sort</a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="<%= sort_az_path %>">
-           Name: A-Z
-          </a>
-          <a class="navbar-item" href="<%= sort_za_path %>">
-            Name: Z-A
-          </a>
-          <a class="navbar-item" href="<%= sort_low_high_path %>">
-           Price: Low-High
-          </a>
-          <a class="navbar-item" href="<%= sort_high_low_path %>">
-            Price: High-Low
-          </a>
+          <a class="navbar-item" href="<%= sort_az_path %>">Name: A-Z</a>
+          <a class="navbar-item" href="<%= sort_za_path %>">Name: Z-A</a>
+          <a class="navbar-item" href="<%= sort_low_high_path %>">Price: Low-High</a>
+          <a class="navbar-item" href="<%= sort_high_low_path %>">Price: High-Low</a>
         </div>
       </div>
 
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Information
-        </a>
-          <div class="navbar-dropdown">
-            <% cms_pages.each do |page| %>
-              <a class="navbar-item" href="<%= permalink_path(page.permalink) %>">
-                <%= page.title %>
-              </a>
-            <% end %>
-          </div>
+        <a class="navbar-link">Information</a>
+        <div class="navbar-dropdown">
+          <% cms_pages.each do |page| %>
+            <a class="navbar-item" href="<%= permalink_path(page.permalink) %>"><%= page.title %></a>
+          <% end %>
+        </div>
       </div>
+    </div>
+    <div class="navbar-end">
+
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="<%= root_path %>">Cart</a>
+          <% if cart.present? %>
+            <sup><%= cart.size %></sup>
+          <% end %>
+            <div class="navbar-dropdown">
+              <% cart.each do |game| %>
+              <a><%= link_to "❌ #{game.name}", cart_path(game), method: "delete", class: "navbar-item" %></a>
+              <% end %>
+            </div>
+        </div>
 
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light">
-            Log in
-          </a>
+          <a class="button is-primary"><strong>Sign up</strong></a>
+          <a class="button is-light">Log in</a>
         </div>
       </div>
     </div>
+
   </div>
 </nav>

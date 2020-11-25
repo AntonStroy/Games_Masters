@@ -5,12 +5,14 @@ class CartController < ApplicationController
     # Add params[:id] to cart.
     id = params[:id].to_i
 
-    unless session[:shopping_cart].include?(id)
-      session[:shopping_cart] << id
-      game = Game.find(id)
-      flash[:notice] = "#{game.name}  Added to cart."
-      redirect_to game_path(game)
-    end
+    # unless session[:shopping_cart].include?(id)
+    session[:shopping_cart] << id
+    game = Game.find(id)
+    # session[:stock] ||= game.stock
+
+    flash[:notice] = "#{game.name}  Added to cart."
+    redirect_to game_path(game)
+    # end
   end
 
   def destroy
