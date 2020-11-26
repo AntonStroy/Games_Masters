@@ -51,7 +51,7 @@
             <% end %>
           </div>
           <div>
-            <%= button_to 'buy now', checkout_create_path, method: :post, params: {id: game.id } %>
+            <%= button_to 'buy now', checkout_create_path, method: :post, params: { id: @game.id }, remote: true %>
           </div>
         </div>
           <% if flash[:notice] %>
