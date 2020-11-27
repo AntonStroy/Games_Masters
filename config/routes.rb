@@ -13,11 +13,15 @@ Rails.application.routes.draw do
   get "home/sort_low_high", to: "home#sort_low_high", as: "sort_low_high"
   get "home/sort_high_low", to: "home#sort_high_low", as: "sort_high_low"
 
-  resources :home, only: %i[search] do
+  # Search index and show
+  get "genres", to: "genres#index"
+  get "genres/:id", to: "genres#show", id: /\d+/, as: "genre"
+
+   resources :home, only: %i[search] do
     collection do
       get "search"
-    end
-  end
+     end
+   end
 
   # Genres show and index
   resources :genres, only: %i[index show]

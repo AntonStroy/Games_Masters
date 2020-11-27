@@ -9,7 +9,21 @@ class HomeController < ApplicationController
 
   def search
     wildcard_search = "%#{params[:keywords]}%"
-    @games_search = Game.where("name LIKE ?", wildcard_search)
+    genre_filter = params[:category]
+    time_filter = params[:time]
+
+    @games = Game.where("name LIKE ? OR description LIKE ?", wildcard_search, wildcard_search)
+    if time_filter == "New"
+      @games = @games.where(created_at: (Time.now.getlocal - 1.day)..Time.now.getlocal)
+    elsif time_filter == "Recently Updated"
+      @games = @games.where(updated_at: (Time.now.getlocal - 1.day)..Time.now.getlocal)
+    elsif time_filter == "Sale"
+      @games = @games.where(price: [nil, "sale"])
+    end
+
+    if params[:category].present?
+      @games = Game.joins(:genres).where("genres.name"=>genre_filter).where("games.name LIKE ? OR description LIKE ?", wildcard_search, wildcard_search)
+    end
   end
 
   def sort_az
@@ -26,9 +40,5 @@ class HomeController < ApplicationController
 
   def sort_high_low
     @games = Game.order(price: :desc).includes(:genres).page(params[:page]) # DESC
-  end
-
-  def sale_search
-    @games = Game.where(price: [nil, "sale"])
   end
 end
