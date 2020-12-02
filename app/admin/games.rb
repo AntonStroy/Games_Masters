@@ -1,6 +1,6 @@
 ActiveAdmin.register Game do
   permit_params :sku, :name, :description, :release_date, :rating, :price, :stock, :link, :cover, :developer_id, :publisher_id,
-                genre_games: %i[id game_id genre_id _destroy], platform_games: %i[id game_id platform_id _destroy]
+                genre_games_attributes: %i[id game_id genre_id _destroy], platform_games_attributes: %i[id game_id platform_id _destroy]
 
   form do |f|
     f.semantic_errors(*f.object.errors.keys)
