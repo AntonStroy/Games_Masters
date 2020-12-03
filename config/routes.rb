@@ -34,10 +34,10 @@ Rails.application.routes.draw do
 
   resources :developers, only: %i[index show]
 
-  resources :cart, only: %i[create destroy]
+  # resources :cart, only: %i[create destroy]
 
-  post "games/add_to_cart/:id", to: "games#add_to_cart", as: "add_to_cart"
-  delete "games/remove_from_cart/:id", to: "games#remove_from_cart", as: "remove_from_cart"
+  post "cart/add_to_cart/:id", to: "cart#add_to_cart", as: "add_to_cart"
+  delete "cart/remove_from_cart/:id", to: "cart#remove_from_cart", as: "remove_from_cart"
 
   scope "/checkout" do
     post "create", to: "checkout#create", as: "checkout_create"

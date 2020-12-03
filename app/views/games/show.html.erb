@@ -38,14 +38,14 @@
       <!--<p><strong>link:</strong> under construction</p>-->
         <div class="field is-grouped is-grouped">
           <div class="mr-3">
-            <%= form_with url: cart_index_path, method: :post do %>
+            <%= form_with url: add_to_cart_path, method: :post do %>
               <%= hidden_field_tag(:id, @game.id) %>
               <%= button_tag 'Add To Cart' %>
             <% end %>
           </div>
           <div class="mr-3">
             <% if cart.include?(@game) %>
-              <%= button_to cart_path(@game), method: :delete do %>
+              <%= button_to remove_from_cart(@game), method: :delete do %>
                   Remove From Cart
               <% end %>
             <% end %>
