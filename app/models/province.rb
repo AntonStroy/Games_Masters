@@ -1,5 +1,5 @@
 class Province < ApplicationRecord
-  validates :name, :pst, presence: true
+  validates :name, presence: true
 
-  has_many :accounts
+  has_many :customers
 end

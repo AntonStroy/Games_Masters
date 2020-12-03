@@ -18,11 +18,11 @@ Rails.application.routes.draw do
   get "genres", to: "genres#index"
   get "genres/:id", to: "genres#show", id: /\d+/, as: "genre"
 
-   resources :home, only: %i[search] do
+  resources :home, only: %i[search] do
     collection do
       get "search"
-     end
-   end
+    end
+  end
 
   # Genres show and index
   resources :genres, only: %i[index show]
@@ -35,6 +35,9 @@ Rails.application.routes.draw do
   resources :developers, only: %i[index show]
 
   resources :cart, only: %i[create destroy]
+
+  post "games/add_to_cart/:id", to: "games#add_to_cart", as: "add_to_cart"
+  delete "games/remove_from_cart/:id", to: "games#remove_from_cart", as: "remove_from_cart"
 
   scope "/checkout" do
     post "create", to: "checkout#create", as: "checkout_create"
