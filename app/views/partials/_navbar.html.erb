@@ -50,13 +50,16 @@
           <div class="navbar-dropdown">
            <% cart.each do |g, quantity| %>
                       <div class="navbar-item" >
-                        <%= Game.find(g.id).name %>---<%= quantity %>
+                        <% if quantity > 1 %>
+                        <%= Game.find(g.id).name %>- qty -<%= quantity %>
+                        <% else %>
+                        <%= Game.find(g.id).name %>
+                        <% end %>
                         <div class="ml-2"><%= link_to('❌', remove_from_cart_path(g), method: :delete) %></div>
                       </div>
                     <% end %>
           </div>
         </div>
-
           <div class="navbar-item">
           <div class="buttons">
                     <% if !customer_signed_in? %>

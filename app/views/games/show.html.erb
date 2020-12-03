@@ -35,27 +35,36 @@
         <% else %>
             <button>Download for free</button>
         <% end %>
-      <!--<p><strong>link:</strong> under construction</p>-->
-        <div class="field is-grouped is-grouped">
-          <div class="mr-3">
-            <%= form_with url: add_to_cart_path, method: :post do %>
-              <%= hidden_field_tag(:id, @game.id) %>
-              <%= button_tag 'Add To Cart' %>
-            <% end %>
-          </div>
-          <div class="mr-3">
-            <% if cart.include?(@game) %>
-              <%= button_to remove_from_cart(@game), method: :delete do %>
-                  Remove From Cart
-              <% end %>
-            <% end %>
-          </div>
-          <div>
-            <%= button_to 'buy now', checkout_create_path, method: :post, params: { id: @game.id }, remote: true %>
-          </div>
+        <!--<p><strong>link:</strong> under construction</p>-->
+      <div class="field is-grouped">
+        <div class="mr-3">
+          <%= button_to 'buy now' , checkout_create_path, method: :post, params: { id: @game.id }, remote: true, class: "button is-primary" %>
         </div>
-          <% if flash[:notice] %>
-            <p><%= flash[:notice] %></p>
+
+
+
+          <%= form_with url: add_to_cart_path(@game), method: :post do %>
+
+          <div class="field is-grouped">
+            <div class="control is-expanded">
+            <% hidden_field_tag(:id, @game.id)%>
+              <%= number_field(:one_game, :quantity, min: 1, class: "input") %>
+            </div>
+
+            <div  class="control mr-3">
+              <%= button_tag(cart.include?(@game) ? 'Update' : 'Add', class: "button is-primary") %>
+            </div>
+              </div>
           <% end %>
-    </div>
+
+
+        <div class="mr-3">
+          <% if cart.include?(@game) %>
+            <%= button_to(remove_from_cart_path(@game), method: :delete, class: "button is-warning") do %>
+              Remove From Cart
+            <% end %>
+          <% end %>
+        </div>
+      </div>
   </div>
+</div>
