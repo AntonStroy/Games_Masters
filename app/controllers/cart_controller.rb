@@ -27,7 +27,6 @@ class CartController < ApplicationController
   def add_to_cart
     id = params[:id].to_i
     quantity = params[:one_game]["quantity"].to_i
-    # session[:cart] << id unless session.include?(id)
     session[:shopping_cart][id] = quantity
     flash[:notice] = "#{Game.find(id).name} added to your cart."
 

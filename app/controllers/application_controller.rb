@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   def initialize_session
     # This will be where we initialize our shopping cart.
-    session[:shopping_cart] ||= {} # the shopping cart will be an array of product ids.
+    session[:shopping_cart] ||= {} # the shopping cart will be an array of game ids.
   end
 
   # def cart
