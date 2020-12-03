@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_231013) do
+ActiveRecord::Schema.define(version: 2020_12_03_021021) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "first_name"
@@ -21,11 +21,9 @@ ActiveRecord::Schema.define(version: 2020_11_17_231013) do
     t.string "address"
     t.string "city"
     t.string "postal"
-    t.integer "province_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["province_id"], name: "index_accounts_on_province_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -74,6 +72,21 @@ ActiveRecord::Schema.define(version: 2020_11_17_231013) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "defaultShippingAddress"
+    t.integer "province_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["province_id"], name: "index_customers_on_province_id"
+    t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
   create_table "developers", force: :cascade do |t|
@@ -137,10 +150,14 @@ ActiveRecord::Schema.define(version: 2020_11_17_231013) do
     t.string "shipping_city"
     t.string "shipping_province"
     t.string "shipping_postal"
-    t.integer "account_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["account_id"], name: "index_orders_on_account_id"
+    t.integer "customer_id", null: false
+    t.decimal "gst"
+    t.decimal "hst"
+    t.decimal "pst"
+    t.integer "stripe_intent_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
   create_table "pages", force: :cascade do |t|
@@ -171,6 +188,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_231013) do
     t.float "pst"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "gst"
   end
 
   create_table "publishers", force: :cascade do |t|
@@ -187,16 +205,16 @@ ActiveRecord::Schema.define(version: 2020_11_17_231013) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "accounts", "provinces"
   add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "customers", "provinces"
   add_foreign_key "games", "developers"
   add_foreign_key "games", "publishers"
   add_foreign_key "genre_games", "games"
   add_foreign_key "genre_games", "genres"
   add_foreign_key "order_games", "games"
   add_foreign_key "order_games", "orders"
-  add_foreign_key "orders", "accounts"
+  add_foreign_key "orders", "customers"
   add_foreign_key "platform_games", "games"
   add_foreign_key "platform_games", "platforms"
 end
