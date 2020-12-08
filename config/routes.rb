@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "orders/index"
   devise_for :customers
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -34,12 +35,15 @@ Rails.application.routes.draw do
 
   resources :developers, only: %i[index show]
 
+  resources :orders, only: %i[index]
+
   # resources :cart, only: %i[create destroy]
 
   post "cart/add_to_cart/:id", to: "cart#add_to_cart", as: "add_to_cart"
   delete "cart/remove_from_cart/:id", to: "cart#remove_from_cart", as: "remove_from_cart"
 
   scope "/checkout" do
+    post "buy_now", to: "checkout#buy_now", as: "checkout_buy_now"
     post "create", to: "checkout#create", as: "checkout_create"
     get "cancel", to: "checkout#cancel", as: "checkout_cancel"
     get "success", to: "checkout#success", as: "checkout_success"

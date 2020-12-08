@@ -58,6 +58,10 @@
                         <div class="ml-2"><%= link_to('❌', remove_from_cart_path(g), method: :delete) %></div>
                       </div>
                     <% end %>
+                     <% if cart.present? %>
+                        <div class="navbar-item" ><%= link_to('Checkout', checkout_create_path, method: :post, remote: true) %></div>
+                      <% end %>
+
           </div>
         </div>
           <div class="navbar-item">
@@ -70,7 +74,11 @@
                       <%= button_to(destroy_customer_session_path, method: :delete, class: "button is-warning") do %>
                         <strong>Sign out</strong>
                       <% end %>
+                      <%= button_to(orders_index_path, method: :get, class: "button is-primary") do %>
+                        <strong>Orders</strong>
+                        <% end %>
                     <% end %>
+
                   </div>
       </div>
     </div>

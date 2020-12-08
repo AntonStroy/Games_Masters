@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  validates :name, :description, :release_date, :price, :stock, presence: true
+  validates :name, :description, presence: true
   validates :stock, numericality: { only_integer: true }
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 

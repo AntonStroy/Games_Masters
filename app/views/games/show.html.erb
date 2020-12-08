@@ -38,7 +38,7 @@
         <!--<p><strong>link:</strong> under construction</p>-->
       <div class="field is-grouped">
         <div class="mr-3">
-          <%= button_to 'buy now' , checkout_create_path, method: :post, params: { id: @game.id }, remote: true, class: "button is-primary" %>
+          <%= button_to 'buy now' , checkout_buy_now_path, method: :post, remote: true, class: "button is-primary" %>
         </div>
 
 
@@ -46,9 +46,9 @@
           <%= form_with url: add_to_cart_path(@game), method: :post do %>
 
           <div class="field is-grouped">
-            <div class="control is-expanded">
+            <div>
             <% hidden_field_tag(:id, @game.id)%>
-              <%= number_field(:one_game, :quantity, min: 1, class: "input") %>
+              <%= number_field(:one_game, :quantity, min: 1, :value => 1, class: "input") %>
             </div>
 
             <div  class="control mr-3">
@@ -61,7 +61,7 @@
         <div class="mr-3">
           <% if cart.include?(@game) %>
             <%= button_to(remove_from_cart_path(@game), method: :delete, class: "button is-warning") do %>
-              Remove From Cart
+              Clear Cart
             <% end %>
           <% end %>
         </div>

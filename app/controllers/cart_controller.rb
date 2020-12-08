@@ -28,7 +28,7 @@ class CartController < ApplicationController
     id = params[:id].to_i
     quantity = params[:one_game]["quantity"].to_i
     session[:shopping_cart][id] = quantity
-    flash[:notice] = "#{Game.find(id).name} added to your cart."
+    flash[:notice] = "#{Game.find(id).name} added to cart."
 
     redirect_to game_path(id)
   end
@@ -36,7 +36,7 @@ class CartController < ApplicationController
   def remove_from_cart
     id = params[:id].to_i
     session[:shopping_cart].delete(id.to_s)
-    flash[:notice] = "#{Game.find(id).name} removed from your cart."
+    flash[:notice] = "#{Game.find(id).name} removed from cart."
     redirect_to game_path(id)
   end
 end
